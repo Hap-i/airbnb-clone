@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -18,10 +19,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         return { uri: configService.get('DATABASE_URL') };
       },
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/airbnb-clone'),
     AuthModule,
     UserModule,
     RoomsModule,
+    ReviewsModule,
   ],
   controllers: [],
   providers: [],
