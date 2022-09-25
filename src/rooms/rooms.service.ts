@@ -2,32 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomsRepository } from './rooms.repository';
+import { Room } from './schema/room.schema';
 
 @Injectable()
 export class RoomsService {
   constructor(private readonly roomRepository: RoomsRepository) {}
 
-  create(createRoomDto: CreateRoomDto) {
-    return this.roomRepository.create(createRoomDto);
+  async create(createRoomDto: CreateRoomDto): Promise<Room> {
+    return await this.roomRepository.create(createRoomDto);
   }
 
-  findAll() {
-    return this.roomRepository.find({ active: true });
+  async findAll(): Promise<Room[]> {
+    return await this.roomRepository.find({ active: true });
   }
 
-  findOne(id: string) {
-    return this.roomRepository.findOne({ _id: id });
+  async findOne(id: string): Promise<Room> {
+    return await this.roomRepository.findOne({ _id: id });
   }
 
-  update(id: string, updateRoomDto: UpdateRoomDto) {
-    return this.roomRepository.findOneAndUpdate(
+  async update(id: string, updateRoomDto: UpdateRoomDto): Promise<Room> {
+    return await this.roomRepository.findOneAndUpdate(
       { _id: id, active: true },
       updateRoomDto,
     );
   }
 
-  remove(id: string) {
-    return this.roomRepository.findOneAndUpdate(
+  async remove(id: string): Promise<Room> {
+    return await this.roomRepository.findOneAndUpdate(
       { _id: id, active: true },
       { active: false },
     );
